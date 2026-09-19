@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Android/mobile support -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>WORLD DRIVE: EARTH</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         GAME CONTAINER
+    ========================== -->
+    <div id="game">
+
+        <!-- =========================
+             TOP HUD
+        ========================== -->
+        <div id="topHud">
+
+            <div class="gameTitle">
+                🌍 WORLD DRIVE: EARTH
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    ❤️ <span id="health">100</span>
+                </div>
+
+                <div class="stat">
+                    🍗 <span id="hunger">100</span>
+                </div>
+
+                <div class="stat">
+                    ⚡ <span id="energy">100</span>
+                </div>
+
+                <div class="stat">
+                    💰 ₹<span id="money">10000</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             WORLD
+        ========================== -->
+        <div id="world">
+
+            <!-- Decorative road system -->
+            <div class="road roadHorizontal"></div>
+            <div class="road roadVertical"></div>
+
+            <div class="road roadDiagonal1"></div>
+            <div class="road roadDiagonal2"></div>
+
+            <!-- Road markings -->
+            <div class="roadLine horizontalLine"></div>
+            <div class="roadLine verticalLine"></div>
+
+
+            <!-- =========================
+                 MAP LOCATIONS
+            ========================== -->
+
+            <div class="poi house" data-name="Home">
+                🏠
+                <span>Home</span>
+            </div>
+
+            <div class="poi shop" data-name="Shop">
+                🛒
+                <span>Shop</span>
+            </div>
+
+            <div class="poi fuel" data-name="Fuel Station">
+                ⛽
+                <span>Fuel</span>
+            </div>
+
+            <div class="poi bank" data-name="Bank">
+                🏦
+                <span>Bank</span>
+            </div>
+
+            <div class="poi station" data-name="Railway Station">
+                🚆
+                <span>Station</span>
+            </div>
+
+            <div class="poi restaurant" data-name="Restaurant">
+                🍔
+                <span>Restaurant</span>
+            </div>
+
+
+            <!-- =========================
+                 PLAYER CAR
+            ========================== -->
+
+            <div id="player">
+
+                <div id="car">
+                    🚗
+                </div>
+
+                <div id="playerMarker"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             MINIMAP
+        ========================== -->
+
+        <div id="miniMap">
+
+            <div class="miniTitle">
+                MAP
+            </div>
+
+            <div id="miniWorld">
+
+                <div class="miniRoad miniRoadH"></div>
+                <div class="miniRoad miniRoadV"></div>
+
+                <div class="miniPoi miniHome">🏠</div>
+                <div class="miniPoi miniBank">🏦</div>
+                <div class="miniPoi miniStation">🚆</div>
+
+                <div id="miniPlayer"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             LOCATION DISPLAY
+        ========================== -->
+
+        <div id="locationPanel">
+
+            <div>📍 THRISSUR, KERALA</div>
+
+            <div>
+                Coordinates:
+                <span id="coordinates">
+                    10.5276, 76.2144
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             TIME DISPLAY
+        ========================== -->
+
+        <div id="timePanel">
+
+            <div id="gameTime">
+                08:00
+            </div>
+
+            <div id="period">
+                MORNING
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             INTERACTION MESSAGE
+        ========================== -->
+
+        <div id="messageBox">
+            <span id="message">
+                Welcome to WORLD DRIVE: EARTH!
+            </span>
+        </div>
+
+
+        <!-- =========================
+             MOBILE DRIVING CONTROLS
+        ========================== -->
+
+        <div id="controls">
+
+            <!-- LEFT SIDE -->
+
+            <div id="steeringControls">
+
+                <button id="leftButton" class="controlButton">
+                    ◀
+                </button>
+
+                <button id="rightButton" class="controlButton">
+                    ▶
+                </button>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <div id="drivingControls">
+
+                <button id="brakeButton" class="controlButton brake">
+                    🛑
+                </button>
+
+                <button id="accelerateButton" class="controlButton accelerate">
+                    ▲
+                </button>
+
+                <button id="reverseButton" class="controlButton">
+                    ▼
+                </button>
+
+            </div>
+
+
+            <!-- OTHER CONTROLS -->
+
+            <div id="extraControls">
+
+                <button id="hornButton" class="smallButton">
+                    📢
+                </button>
+
+                <button id="mapButton" class="smallButton">
+                    🗺️
+                </button>
+
+                <button id="phoneButton" class="smallButton">
+                    📱
+                </button>
+
+                <button id="inventoryButton" class="smallButton">
+                    🎒
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             PHONE PANEL
+        ========================== -->
+
+        <div id="phonePanel" class="popup">
+
+            <div class="popupHeader">
+                📱 PHONE
+
+                <button id="closePhone">
+                    ✕
+                </button>
+            </div>
+
+            <div class="phoneApps">
+
+                <button>🗺️ GPS</button>
+                <button>🍔 FOOD</button>
+                <button>🚕 TAXI</button>
+                <button>🏦 BANK</button>
+                <button>💼 JOBS</button>
+                <button>🚆 TRAVEL</button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             INVENTORY PANEL
+        ========================== -->
+
+        <div id="inventoryPanel" class="popup">
+
+            <div class="popupHeader">
+
+                🎒 INVENTORY
+
+                <button id="closeInventory">
+                    ✕
+                </button>
+
+            </div>
+
+            <div id="inventorySlots">
+
+                <div class="inventorySlot">
+                    💧
+                    <small>Water ×3</small>
+                </div>
+
+                <div class="inventorySlot">
+                    🔑
+                    <small>Car Key</small>
+                </div>
+
+                <div class="inventorySlot">
+                    📄
+                    <small>Licence</small>
+                </div>
+
+                <div class="inventorySlot">
+                    🍔
+                    <small>Food ×2</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             MAP PANEL
+        ========================== -->
+
+        <div id="mapPanel" class="popup">
+
+            <div class="popupHeader">
+
+                🗺️ WORLD MAP
+
+                <button id="closeMap">
+                    ✕
+                </button>
+
+            </div>
+
+            <div id="bigMap">
+
+                <div class="bigMapRoad bigMapRoad1"></div>
+                <div class="bigMapRoad bigMapRoad2"></div>
+
+                <div class="mapLocation homeLocation">
+                    🏠
+                    <span>Home</span>
+                </div>
+
+                <div class="mapLocation stationLocation">
+                    🚆
+                    <span>Railway Station</span>
+                </div>
+
+                <div class="mapLocation bankLocation">
+                    🏦
+                    <span>Bank</span>
+                </div>
+
+                <div class="mapLocation playerLocation">
+                    📍
+                    <span>You</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             START MESSAGE
+        ========================== -->
+
+        <div id="startScreen">
+
+            <div class="startCard">
+
+                <div class="logo">
+                    🌍
+                </div>
+
+                <h1>
+                    WORLD DRIVE: EARTH
+                </h1>
+
+                <p>
+                    DRIVE. RACE. EXPLORE. LIVE THE WORLD.
+                </p>
+
+                <p class="locationStart">
+                    📍 THRISSUR, KERALA
+                </p>
+
+                <button id="startButton">
+                    START GAME
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+  </html>
