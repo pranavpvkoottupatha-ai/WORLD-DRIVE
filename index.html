@@ -1,416 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
 
-    <!-- Android/mobile support -->
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   user-scalable=no">
 
-    <title>WORLD DRIVE: EARTH</title>
+    <title>WORLD DRIVE: EARTH V2</title>
+
+    <!-- Leaflet map library -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
+<div id="game">
+
     <!-- =========================
-         GAME CONTAINER
+         MAP
     ========================== -->
-    <div id="game">
 
-        <!-- =========================
-             TOP HUD
-        ========================== -->
-        <div id="topHud">
+    <div id="map"></div>
 
-            <div class="gameTitle">
-                🌍 WORLD DRIVE: EARTH
-            </div>
 
-            <div class="stats">
+    <!-- =========================
+         TOP HUD
+    ========================== -->
 
-                <div class="stat">
-                    ❤️ <span id="health">100</span>
-                </div>
+    <div id="topHud">
 
-                <div class="stat">
-                    🍗 <span id="hunger">100</span>
-                </div>
-
-                <div class="stat">
-                    ⚡ <span id="energy">100</span>
-                </div>
-
-                <div class="stat">
-                    💰 ₹<span id="money">10000</span>
-                </div>
-
-            </div>
-
+        <div class="title">
+            🌍 WORLD DRIVE: EARTH
         </div>
 
+        <div class="stats">
 
-        <!-- =========================
-             WORLD
-        ========================== -->
-        <div id="world">
+            <div>❤️ <span id="health">100</span></div>
 
-            <!-- Decorative road system -->
-            <div class="road roadHorizontal"></div>
-            <div class="road roadVertical"></div>
+            <div>🍗 <span id="hunger">100</span></div>
 
-            <div class="road roadDiagonal1"></div>
-            <div class="road roadDiagonal2"></div>
+            <div>⚡ <span id="energy">100</span></div>
 
-            <!-- Road markings -->
-            <div class="roadLine horizontalLine"></div>
-            <div class="roadLine verticalLine"></div>
+            <div>💵 ₹<span id="cash">2000</span></div>
 
-
-            <!-- =========================
-                 MAP LOCATIONS
-            ========================== -->
-
-            <div class="poi house" data-name="Home">
-                🏠
-                <span>Home</span>
-            </div>
-
-            <div class="poi shop" data-name="Shop">
-                🛒
-                <span>Shop</span>
-            </div>
-
-            <div class="poi fuel" data-name="Fuel Station">
-                ⛽
-                <span>Fuel</span>
-            </div>
-
-            <div class="poi bank" data-name="Bank">
-                🏦
-                <span>Bank</span>
-            </div>
-
-            <div class="poi station" data-name="Railway Station">
-                🚆
-                <span>Station</span>
-            </div>
-
-            <div class="poi restaurant" data-name="Restaurant">
-                🍔
-                <span>Restaurant</span>
-            </div>
-
-
-            <!-- =========================
-                 PLAYER CAR
-            ========================== -->
-
-            <div id="player">
-
-                <div id="car">
-                    🚗
-                </div>
-
-                <div id="playerMarker"></div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             MINIMAP
-        ========================== -->
-
-        <div id="miniMap">
-
-            <div class="miniTitle">
-                MAP
-            </div>
-
-            <div id="miniWorld">
-
-                <div class="miniRoad miniRoadH"></div>
-                <div class="miniRoad miniRoadV"></div>
-
-                <div class="miniPoi miniHome">🏠</div>
-                <div class="miniPoi miniBank">🏦</div>
-                <div class="miniPoi miniStation">🚆</div>
-
-                <div id="miniPlayer"></div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             LOCATION DISPLAY
-        ========================== -->
-
-        <div id="locationPanel">
-
-            <div>📍 THRISSUR, KERALA</div>
-
-            <div>
-                Coordinates:
-                <span id="coordinates">
-                    10.5276, 76.2144
-                </span>
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             TIME DISPLAY
-        ========================== -->
-
-        <div id="timePanel">
-
-            <div id="gameTime">
-                08:00
-            </div>
-
-            <div id="period">
-                MORNING
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             INTERACTION MESSAGE
-        ========================== -->
-
-        <div id="messageBox">
-            <span id="message">
-                Welcome to WORLD DRIVE: EARTH!
-            </span>
-        </div>
-
-
-        <!-- =========================
-             MOBILE DRIVING CONTROLS
-        ========================== -->
-
-        <div id="controls">
-
-            <!-- LEFT SIDE -->
-
-            <div id="steeringControls">
-
-                <button id="leftButton" class="controlButton">
-                    ◀
-                </button>
-
-                <button id="rightButton" class="controlButton">
-                    ▶
-                </button>
-
-            </div>
-
-
-            <!-- RIGHT SIDE -->
-
-            <div id="drivingControls">
-
-                <button id="brakeButton" class="controlButton brake">
-                    🛑
-                </button>
-
-                <button id="accelerateButton" class="controlButton accelerate">
-                    ▲
-                </button>
-
-                <button id="reverseButton" class="controlButton">
-                    ▼
-                </button>
-
-            </div>
-
-
-            <!-- OTHER CONTROLS -->
-
-            <div id="extraControls">
-
-                <button id="hornButton" class="smallButton">
-                    📢
-                </button>
-
-                <button id="mapButton" class="smallButton">
-                    🗺️
-                </button>
-
-                <button id="phoneButton" class="smallButton">
-                    📱
-                </button>
-
-                <button id="inventoryButton" class="smallButton">
-                    🎒
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             PHONE PANEL
-        ========================== -->
-
-        <div id="phonePanel" class="popup">
-
-            <div class="popupHeader">
-                📱 PHONE
-
-                <button id="closePhone">
-                    ✕
-                </button>
-            </div>
-
-            <div class="phoneApps">
-
-                <button>🗺️ GPS</button>
-                <button>🍔 FOOD</button>
-                <button>🚕 TAXI</button>
-                <button>🏦 BANK</button>
-                <button>💼 JOBS</button>
-                <button>🚆 TRAVEL</button>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             INVENTORY PANEL
-        ========================== -->
-
-        <div id="inventoryPanel" class="popup">
-
-            <div class="popupHeader">
-
-                🎒 INVENTORY
-
-                <button id="closeInventory">
-                    ✕
-                </button>
-
-            </div>
-
-            <div id="inventorySlots">
-
-                <div class="inventorySlot">
-                    💧
-                    <small>Water ×3</small>
-                </div>
-
-                <div class="inventorySlot">
-                    🔑
-                    <small>Car Key</small>
-                </div>
-
-                <div class="inventorySlot">
-                    📄
-                    <small>Licence</small>
-                </div>
-
-                <div class="inventorySlot">
-                    🍔
-                    <small>Food ×2</small>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             MAP PANEL
-        ========================== -->
-
-        <div id="mapPanel" class="popup">
-
-            <div class="popupHeader">
-
-                🗺️ WORLD MAP
-
-                <button id="closeMap">
-                    ✕
-                </button>
-
-            </div>
-
-            <div id="bigMap">
-
-                <div class="bigMapRoad bigMapRoad1"></div>
-                <div class="bigMapRoad bigMapRoad2"></div>
-
-                <div class="mapLocation homeLocation">
-                    🏠
-                    <span>Home</span>
-                </div>
-
-                <div class="mapLocation stationLocation">
-                    🚆
-                    <span>Railway Station</span>
-                </div>
-
-                <div class="mapLocation bankLocation">
-                    🏦
-                    <span>Bank</span>
-                </div>
-
-                <div class="mapLocation playerLocation">
-                    📍
-                    <span>You</span>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             START MESSAGE
-        ========================== -->
-
-        <div id="startScreen">
-
-            <div class="startCard">
-
-                <div class="logo">
-                    🌍
-                </div>
-
-                <h1>
-                    WORLD DRIVE: EARTH
-                </h1>
-
-                <p>
-                    DRIVE. RACE. EXPLORE. LIVE THE WORLD.
-                </p>
-
-                <p class="locationStart">
-                    📍 THRISSUR, KERALA
-                </p>
-
-                <button id="startButton">
-                    START GAME
-                </button>
-
-            </div>
+            <div>🏦 ₹<span id="bank">8000</span></div>
 
         </div>
 
     </div>
 
 
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+    <!-- =========================
+         LOCATION
+    ========================== -->
+
+    <div id="locationBox">
+
+        📍 <b>THRISSUR</b>
+
+        <br>
+
+        <span id="coordinates">
+            10.5276, 76.2144
+        </span>
+
+    </div>
+
+
+    <!-- =========================
+         TIME
+    ========================== -->
+
+    <div id="timeBox">
+
+        <b id="gameTime">08:00</b>
+
+        <br>
+
+        <small id="period">
+            MORNING
+        </small>
+
+    </div>
+
+
+    <!-- =========================
+         SPEED
+    ========================== -->
+
+    <div id="speedBox">
+
+        🚗
+
+        <span id="speed">
+            0
+        </span>
+
+        km/h
+
+    </div>
+
+
+    <!-- =========================
+         MESSAGE
+    ========================== -->
+
+    <div id="messageBox">
+
+        <span id="message">
+            Welcome to WORLD DRIVE: EARTH
+        </span>
+
+    </div>
+
+
+    <!-- =========================
+         MISSION
+    ========================== -->
+
+    <div id="missionBox">
+
+        <b>💼 CURRENT JOB</b>
+
+        <div id="missionText">
+            No active mission
+        </div>
+
+        <button id="jobButton">
+            FIND JOB
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         MOBILE CONTROLS
+    ========================== -->
+
+    <div id="controls">
+
+        <div id="steering">
+
+            <button id="left">
+                ◀
+            </button>
+
+            <button id="right">
+                ▶
+            </button>
+
+        </div>
+
+
+        <div id="driveButtons">
+
+            <button id="brake">
+                🛑
+            </button>
+
+            <button id="accelerate">
+                ▲
+            </button>
+
+            <button id="reverse">
+                ▼
+            </button>
+
+        </div>
+
+
+        <div id="utilityButtons">
+
+            <button id="phoneButton">
+                📱
+            </button>
+
+            <button id="inventoryButton">
+                🎒
+            </button>
+
+            <button id="mapButton">
+                🗺️
+            </button>
+
+            <button id="saveButton">
+                💾
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         PHONE
+    ========================== -->
+
+    <div
+        id="phonePanel"
+        class="panel"
+    >
+
+        <div class="panelHeader">
+
+            📱 PHONE
+
+            <button
+                class="close"
+                id="closePhone"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <div class="phoneGrid">
+
+            <button onclick="showMessage('GPS system opened')">
+                🧭 GPS
+            </button>
+
+            <button onclick="showMessage('Nearby food restaurants')">
+                🍔 FOOD
+            </button>
+
+            <button onclick="showMessage('Taxi requested')">
+                🚕 TAXI
+            </button>
+
+            <button onclick="openBank()">
+                🏦 BANK
+            </button>
+
+            <button onclick="startMission()">
+                💼 JOBS
+            </button>
+
+            <button onclick="showMessage('Travel system coming in V3')">
+                🚆 TRAVEL
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         INVENTORY
+    ========================== -->
+
+    <div
+        id="inventoryPanel"
+        class="panel"
+    >
+
+        <div class="panelHeader">
+
+            🎒 INVENTORY
+
+            <button
+                class="close"
+                id="closeInventory"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <div id="inventorySlots"></div>
+
+    </div>
+
+
+    <!-- =========================
+         BANK
+    ========================== -->
+
+    <div
+        id="bankPanel"
+        class="panel"
+    >
+
+        <div class="panelHeader">
+
+            🏦 BANK / ATM
+
+            <button
+                class="close"
+                id="closeBank"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <div class="bankBalance">
+
+            <div>
+                CASH
+            </div>
+
+            <strong>
+                ₹<span id="bankCash">2000</span>
+            </strong>
+
+            <hr>
+
+            <div>
+                BANK BALANCE
+            </div>
+
+            <strong>
+                ₹<span id="bankBalance">8000</span>
+            </strong>
+
+        </div>
+
+
+        <div class="bankButtons">
+
+            <button onclick="depositMoney()">
+                💵 DEPOSIT ₹500
+            </button>
+
+            <button onclick="withdrawMoney()">
+                💰 WITHDRAW ₹500
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         START SCREEN
+    ========================== -->
+
+    <div id="startScreen">
+
+        <div class="startCard">
+
+            <div class="earth">
+                🌍
+            </div>
+
+            <h1>
+                WORLD DRIVE: EARTH
+            </h1>
+
+            <p>
+                DRIVE. RACE. EXPLORE. LIVE THE WORLD.
+            </p>
+
+            <div class="startLocation">
+                📍 THRISSUR, KERALA
+            </div>
+
+            <button id="startButton">
+                START GAME
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Leaflet -->
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<script src="script.js"></script>
 
 </body>
-  </html>
+</html>
